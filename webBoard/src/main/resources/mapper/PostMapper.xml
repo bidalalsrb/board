@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.webboard.mapper.PostMapper">
+    <resultMap id="PostResultMap" type="com.example.webboard.model.Post">
+        <id property="id" column="id"></id>
+        <result property="title" column="title"></result>
+        <result property="content" column="content"></result>
+        <result property="createdAt" column="createdAt"></result>
+    </resultMap>
+    <select id="getAllPosts" resultMap="PostResultMap">
+        select *
+        from post
+        order by created_at desc
+        ;
+    </select>
+    <insert id="insertPost" parameterType="com.example.webboard.model.Post">
+        insert into post (title,content)
+        values (#{title},#{content});
+    </insert>
+    <select id="getPostById" parameterType="int" resultMap="PostResultMap">
+        select *
+        from post
+        where id = #{id};
+    </select>
+    <delete id="deletePostById" parameterType="int">
+        delete
+        from post
+        where id = #{id};
+    </delete>
+</mapper>
